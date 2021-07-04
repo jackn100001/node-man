@@ -12,8 +12,7 @@ class NodeService
 	public function ping(Node $node)
 	{
 		try {
-			// talk to python api here
-			$url = 'http://127.0.0.1:5000/node/status';
+			$url = env('NODEMAN_API_URL');
 			$parameters = array(
 			      'ip_address' => $node->ip_address
 			);
@@ -35,7 +34,7 @@ class NodeService
 			}
 
 			Log::info($node->ip_address . ' ' . $node->nodeStatus->name);
-			
+
 			$node->save();
 		} catch (\Exception $e) {
 			Log::info($e->getMessage());
